@@ -1,0 +1,68 @@
+<form [formGroup]="formGroup" (submit)="onSubmit()">
+  <ng-container *ngFor="let config of formConfigForm">
+    <div class="grid">
+      <div class="flex flex-column" [ngClass]="config.WIDTH">
+        <span>
+          {{ config.LABEL }}
+          <span style="color: red" *ngIf="config.REQUIRED">*</span>
+        </span>
+        <ng-container *ngIf="config.CTRL_TYPE === controlType.INPUT">
+          <input
+            type="text"
+            pInputText
+            [formControlName]="config.CTRL_KEY"
+            [ngClass]="
+              formGroup.get(config.CTRL_KEY)?.invalid &&
+              formGroup.get(config.CTRL_KEY)?.touched
+                ? 'ng-invalid ng-dirty'
+                : ''
+            "
+            [placeholder]="config.PLACEHOLDER"
+          />
+        </ng-container>
+        <ng-container *ngIf="config.CTRL_TYPE === controlType.NUMBER">
+          <p-inputnumber
+            [formControlName]="config.CTRL_KEY"
+            [mode]="config.MODE_NUMBER"
+            [useGrouping]="config.USE_GROUPING"
+            [minFractionDigits]="config.MIN_FRACTION_DIGITS"
+            [maxFractionDigits]="config.MAX_FRACTION_DIGITS"
+            [ngClass]="
+              formGroup.get(config.CTRL_KEY)?.invalid &&
+              formGroup.get(config.CTRL_KEY)?.touched
+                ? 'ng-invalid ng-dirty'
+                : ''
+            "
+            [placeholder]="config.PLACEHOLDER"
+          />
+        </ng-container>
+        <ng-container *ngIf="config.CTRL_TYPE === controlType.PHONE">
+          <p-inputmask
+            class="input-mask"
+            [mask]="config.MASK_PLACE"
+            [formControlName]="config.CTRL_KEY"
+            [placeholder]="config.PLACEHOLDER"
+            [ngClass]="
+              formGroup.get(config.CTRL_KEY)?.invalid &&
+              formGroup.get(config.CTRL_KEY)?.touched
+                ? 'ng-invalid ng-dirty'
+                : ''
+            "
+          />
+        </ng-container>
+        <span
+          *ngIf="
+            formGroup.get(config.CTRL_KEY)?.invalid &&
+            formGroup.get(config.CTRL_KEY)?.touched
+          "
+          style="color: red"
+          >required</span
+        >
+      </div>
+    </div>
+  </ng-container>
+  <div class="flex gap-3">
+    <p-button label="reset" type="reset" (onClick)="onClickReset()"></p-button>
+    <p-button label="Submit" type="submit"></p-button>
+  </div>
+</form>

@@ -1,0 +1,9 @@
+:host {
+  .input-mask {
+    ::ng-deep {
+      .p-inputtext {
+        width: 100%;
+      }
+    }
+  }
+}
