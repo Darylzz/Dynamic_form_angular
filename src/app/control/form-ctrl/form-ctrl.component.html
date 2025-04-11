@@ -50,6 +50,25 @@
             "
           />
         </ng-container>
+        <ng-container *ngIf="config.CTRL_TYPE === controlType.AUTOCOMPLETE">
+          <p-autocomplete
+            class="autocomplete"
+            [formControlName]="config.CTRL_KEY"
+            [suggestions]="filteredAutoComplete"
+            [ngClass]="
+              formGroup.get(config.CTRL_KEY)?.invalid &&
+              formGroup.get(config.CTRL_KEY)?.touched
+                ? 'ng-invalid ng-dirty'
+                : ''
+            "
+            [placeholder]="config.PLACEHOLDER"
+            (completeMethod)="onCompleteMethodAutocomplete($event)"
+            [emptyMessage]="config.EMPTY_MESSAGE"
+            [showClear]="config.SHOW_CLEAR_AUTOCOMPLETE"
+            optionLabel="name"
+            optionValue="code"
+          ></p-autocomplete>
+        </ng-container>
         <span
           *ngIf="
             formGroup.get(config.CTRL_KEY)?.invalid &&
