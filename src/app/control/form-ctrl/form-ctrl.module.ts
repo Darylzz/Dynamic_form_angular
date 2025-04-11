@@ -7,6 +7,7 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { InputMaskModule } from 'primeng/inputmask';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 const module = [
   InputTextModule,
@@ -14,6 +15,7 @@ const module = [
   InputNumberModule,
   ButtonModule,
   InputMaskModule,
+  AutoCompleteModule,
 ];
 
 @NgModule({
