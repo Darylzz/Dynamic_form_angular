@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ControlType, FormConfig } from './form-ctrl';
+import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 
 @Component({
   selector: 'app-form-ctrl',
@@ -19,6 +20,7 @@ export class FormCtrlComponent implements OnInit {
   private _formConfig: FormConfig[] = [];
   formGroup: FormGroup = new FormGroup({});
   controlType = ControlType;
+  filteredAutoComplete: any[] = [];
   @Input() formConfig: FormConfig[] = [];
   @Output() formValue = new EventEmitter();
 
@@ -54,6 +56,20 @@ export class FormCtrlComponent implements OnInit {
       ? [Validators.required]
       : [Validators.nullValidator];
     return validators;
+  }
+
+  onCompleteMethodAutocomplete(event: AutoCompleteCompleteEvent) {
+    setTimeout(() => {
+      console.log(event);
+      const indexAutocomplete = this.formConfig.findIndex(
+        (item: FormConfig) => item.CTRL_TYPE === ControlType.AUTOCOMPLETE
+      );
+      this.filteredAutoComplete = this.formConfig[
+        indexAutocomplete
+      ].SUGGESTIONS_AUTOCOMPLETE?.filter((item) =>
+        item.name.toLowerCase().includes(event.query.toLowerCase())
+      ) as any;
+    }, 2000);
   }
 
   onSubmit() {

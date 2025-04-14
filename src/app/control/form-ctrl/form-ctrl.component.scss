@@ -6,4 +6,12 @@
       }
     }
   }
+
+  .autocomplete {
+    ::ng-deep {
+      .p-inputtext {
+        width: 100%;
+      }
+    }
+  }
 }

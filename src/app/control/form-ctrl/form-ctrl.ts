@@ -16,6 +16,10 @@ export interface FormConfig {
   MAX_FRACTION_DIGITS?: number;
   MIN_FRACTION_DIGITS?: number;
   MASK_PLACE?: string; //for mask input
+  SUGGESTIONS_AUTOCOMPLETE?: any[]; //for autocomplete input
+  DROPDOWN_AUTOCOMPLETE?: boolean; //for autocomplete dropdown
+  EMPTY_MESSAGE?: string;
+  SHOW_CLEAR_AUTOCOMPLETE?: boolean; //for autocomplete icon clear
 }
 
 export enum ControlType {
@@ -24,4 +28,5 @@ export enum ControlType {
   NUMBER,
   MARK,
   PHONE,
+  AUTOCOMPLETE,
 }
