@@ -20,6 +20,11 @@ export interface FormConfig {
   DROPDOWN_AUTOCOMPLETE?: boolean; //for autocomplete dropdown
   EMPTY_MESSAGE?: string;
   SHOW_CLEAR_AUTOCOMPLETE?: boolean; //for autocomplete icon clear
+  ERROR_MESSAGE?: string; //for handle error message
+  OPTION?: any[]; //for lookup dropdown
+  OPTION_LABEL?: string;
+  OPTION_VALUE?: string;
+  MAX_SELECTION_MULTISELECT?: number;
 }
 
 export enum ControlType {
@@ -29,4 +34,7 @@ export enum ControlType {
   MARK,
   PHONE,
   AUTOCOMPLETE,
+  CHECKBOX,
+  MULTISELECT,
+  MULTICHIP,
 }
