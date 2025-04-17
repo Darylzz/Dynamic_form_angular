@@ -1,10 +1,10 @@
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   Input,
-  OnInit,
+  OnChanges,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ControlType, FormConfig } from './form-ctrl';
@@ -16,27 +16,23 @@ import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
   templateUrl: './form-ctrl.component.html',
   styleUrl: './form-ctrl.component.scss',
 })
-export class FormCtrlComponent implements OnInit {
-  private _formConfig: FormConfig[] = [];
+export class FormCtrlComponent implements OnChanges {
   formGroup: FormGroup = new FormGroup({});
   controlType = ControlType;
   filteredAutoComplete: any[] = [];
   @Input() formConfig: FormConfig[] = [];
   @Output() formValue = new EventEmitter();
 
-  get formConfigForm() {
-    this._formConfig = this.formConfig;
-    return this._formConfig;
-  }
-
   constructor() {}
 
-  ngOnInit(): void {
-    this.createForm();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['formConfig']) {
+      this.createForm();
+    }
   }
 
   createForm() {
-    this.formConfigForm.forEach((config) => {
+    this.formConfig.forEach((config) => {
       const validators = this.setValidator(config);
       this.formGroup.addControl(
         config.CTRL_KEY,
@@ -60,7 +56,6 @@ export class FormCtrlComponent implements OnInit {
 
   onCompleteMethodAutocomplete(event: AutoCompleteCompleteEvent) {
     setTimeout(() => {
-      console.log(event);
       const indexAutocomplete = this.formConfig.findIndex(
         (item: FormConfig) => item.CTRL_TYPE === ControlType.AUTOCOMPLETE
       );
@@ -69,7 +64,7 @@ export class FormCtrlComponent implements OnInit {
       ].SUGGESTIONS_AUTOCOMPLETE?.filter((item) =>
         item.name.toLowerCase().includes(event.query.toLowerCase())
       ) as any;
-    }, 2000);
+    }, 1000);
   }
 
   onSubmit() {

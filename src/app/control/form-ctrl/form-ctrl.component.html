@@ -1,5 +1,5 @@
 <form [formGroup]="formGroup" (submit)="onSubmit()">
-  <ng-container *ngFor="let config of formConfigForm">
+  <ng-container *ngFor="let config of formConfig">
     <div class="grid">
       <div class="flex flex-column" [ngClass]="config.WIDTH">
         <span>
@@ -69,13 +69,61 @@
             optionValue="code"
           ></p-autocomplete>
         </ng-container>
+        <ng-container *ngIf="config.CTRL_TYPE === controlType.CHECKBOX">
+          <p-checkbox
+            [formControlName]="config.CTRL_KEY"
+            [styleClass]="
+              formGroup.get(config.CTRL_KEY)?.invalid &&
+              formGroup.get(config.CTRL_KEY)?.touched
+                ? 'ng-invalid ng-dirty'
+                : ''
+            "
+            [binary]="true"
+          ></p-checkbox>
+        </ng-container>
+        <ng-container *ngIf="config.CTRL_TYPE === controlType.MULTISELECT">
+          <p-multiselect
+            [formControlName]="config.CTRL_KEY"
+            [options]="config.OPTION"
+            [optionLabel]="config.OPTION_LABEL"
+            [optionValue]="config.OPTION_VALUE"
+            [maxSelectedLabels]="config.MAX_SELECTION_MULTISELECT"
+            [placeholder]="config.PLACEHOLDER"
+            [ngClass]="
+              formGroup.get(config.CTRL_KEY)?.invalid &&
+              formGroup.get(config.CTRL_KEY)?.touched
+                ? 'ng-invalid ng-dirty'
+                : ''
+            "
+            [emptyMessage]="config.EMPTY_MESSAGE ?? 'ไม่มีข้อมูล'"
+          ></p-multiselect>
+        </ng-container>
+        <ng-container *ngIf="config.CTRL_TYPE === controlType.MULTICHIP">
+          <p-multiselect
+            [formControlName]="config.CTRL_KEY"
+            [options]="config.OPTION"
+            [optionLabel]="config.OPTION_LABEL"
+            [optionValue]="config.OPTION_VALUE"
+            [maxSelectedLabels]="config.MAX_SELECTION_MULTISELECT"
+            [placeholder]="config.PLACEHOLDER"
+            [ngClass]="
+              formGroup.get(config.CTRL_KEY)?.invalid &&
+              formGroup.get(config.CTRL_KEY)?.touched
+                ? 'ng-invalid ng-dirty'
+                : ''
+            "
+            [emptyMessage]="config.EMPTY_MESSAGE ?? 'ไม่มีข้อมูล'"
+            display="chip"
+          ></p-multiselect>
+        </ng-container>
         <span
           *ngIf="
             formGroup.get(config.CTRL_KEY)?.invalid &&
-            formGroup.get(config.CTRL_KEY)?.touched
+            formGroup.get(config.CTRL_KEY)?.touched &&
+            config.ERROR_MESSAGE
           "
           style="color: red"
-          >required</span
+          >{{ config.ERROR_MESSAGE }}</span
         >
       </div>
     </div>
