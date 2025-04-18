@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ControlType, FormConfig } from '../control/form-ctrl/form-ctrl';
+import { dateFormatRender } from '../utils/dateFormat';
 
 @Component({
   selector: 'app-home',
@@ -86,6 +87,19 @@ export class HomeComponent implements OnInit {
       ERROR_MESSAGE: 'Multiselect is required',
       PLACEHOLDER: 'Select a country',
     },
+    {
+      LABEL: 'date',
+      CTRL_KEY: 'date',
+      CTRL_TYPE: ControlType.DATEPICKER,
+      REQUIRED: true,
+      WIDTH: 'col-6',
+      ERROR_MESSAGE: 'Date is required',
+      SHOW_ICON: true,
+      SHOW_ICON_CLEAR: true,
+      MIN_DATE: new Date(),
+      MAX_DATE: this.setMaxDate(2026),
+      PLACEHOLDER: 'Select a date',
+    },
   ];
 
   constructor() {}
@@ -113,7 +127,21 @@ export class HomeComponent implements OnInit {
     this.formConfig[indexMultiChip].OPTION = mockLookup;
   }
 
+  setMaxDate(targetYear: number) {
+    console.log(dateFormatRender(new Date()));
+    const now = new Date();
+    const result = new Date(now);
+    result.setFullYear(targetYear);
+    return result;
+  }
+
   onSubmit(event: any) {
     console.log(event);
+    if (event.email === 'test') {
+      this.formConfig[1].ERROR_MESSAGE = 'Email already exists';
+      this.formConfig[1].INVALID_FORM = true;
+    } else {
+      this.formConfig[1].INVALID_FORM = false;
+    }
   }
 }
