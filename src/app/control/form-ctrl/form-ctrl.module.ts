@@ -10,6 +10,8 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CheckboxModule } from 'primeng/checkbox';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { DatePickerModule } from 'primeng/datepicker';
+import { PrimeNG } from 'primeng/config';
 
 const module = [
   InputTextModule,
@@ -20,6 +22,7 @@ const module = [
   AutoCompleteModule,
   CheckboxModule,
   MultiSelectModule,
+  DatePickerModule,
 ];
 
 @NgModule({
@@ -27,5 +30,6 @@ const module = [
   imports: [CommonModule, FormsModule, ReactiveFormsModule, module],
   exports: [FormCtrlComponent, module],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [PrimeNG],
 })
 export class FormCtrlModule {}

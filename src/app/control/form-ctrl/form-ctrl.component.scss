@@ -14,4 +14,10 @@
       }
     }
   }
+
+  ::ng-deep {
+    .p-datepicker {
+      width: 100%;
+    }
+  }
 }

@@ -3,12 +3,15 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ControlType, FormConfig } from './form-ctrl';
 import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
+import { ThLocale } from '../../utils/dateFormat';
+import { PrimeNG } from 'primeng/config';
 
 @Component({
   selector: 'app-form-ctrl',
@@ -16,14 +19,19 @@ import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
   templateUrl: './form-ctrl.component.html',
   styleUrl: './form-ctrl.component.scss',
 })
-export class FormCtrlComponent implements OnChanges {
+export class FormCtrlComponent implements OnInit, OnChanges {
   formGroup: FormGroup = new FormGroup({});
   controlType = ControlType;
   filteredAutoComplete: any[] = [];
+  thLocale = ThLocale;
   @Input() formConfig: FormConfig[] = [];
   @Output() formValue = new EventEmitter();
 
-  constructor() {}
+  constructor(private primgNG: PrimeNG) {}
+
+  ngOnInit(): void {
+    this.primgNG.setTranslation(this.thLocale);
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['formConfig']) {

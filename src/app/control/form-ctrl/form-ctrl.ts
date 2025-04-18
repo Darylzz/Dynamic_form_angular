@@ -25,6 +25,11 @@ export interface FormConfig {
   OPTION_LABEL?: string;
   OPTION_VALUE?: string;
   MAX_SELECTION_MULTISELECT?: number;
+  SHOW_ICON?: boolean;
+  SHOW_ICON_CLEAR?: boolean;
+  MIN_DATE?: Date;
+  MAX_DATE?: Date;
+  INVALID_FORM?: boolean; //not set default value
 }
 
 export enum ControlType {
@@ -37,4 +42,5 @@ export enum ControlType {
   CHECKBOX,
   MULTISELECT,
   MULTICHIP,
+  DATEPICKER,
 }

@@ -12,8 +12,9 @@
             pInputText
             [formControlName]="config.CTRL_KEY"
             [ngClass]="
-              formGroup.get(config.CTRL_KEY)?.invalid &&
-              formGroup.get(config.CTRL_KEY)?.touched
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
                 ? 'ng-invalid ng-dirty'
                 : ''
             "
@@ -28,8 +29,9 @@
             [minFractionDigits]="config.MIN_FRACTION_DIGITS"
             [maxFractionDigits]="config.MAX_FRACTION_DIGITS"
             [ngClass]="
-              formGroup.get(config.CTRL_KEY)?.invalid &&
-              formGroup.get(config.CTRL_KEY)?.touched
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
                 ? 'ng-invalid ng-dirty'
                 : ''
             "
@@ -43,8 +45,9 @@
             [formControlName]="config.CTRL_KEY"
             [placeholder]="config.PLACEHOLDER"
             [ngClass]="
-              formGroup.get(config.CTRL_KEY)?.invalid &&
-              formGroup.get(config.CTRL_KEY)?.touched
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
                 ? 'ng-invalid ng-dirty'
                 : ''
             "
@@ -56,8 +59,9 @@
             [formControlName]="config.CTRL_KEY"
             [suggestions]="filteredAutoComplete"
             [ngClass]="
-              formGroup.get(config.CTRL_KEY)?.invalid &&
-              formGroup.get(config.CTRL_KEY)?.touched
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
                 ? 'ng-invalid ng-dirty'
                 : ''
             "
@@ -73,8 +77,9 @@
           <p-checkbox
             [formControlName]="config.CTRL_KEY"
             [styleClass]="
-              formGroup.get(config.CTRL_KEY)?.invalid &&
-              formGroup.get(config.CTRL_KEY)?.touched
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
                 ? 'ng-invalid ng-dirty'
                 : ''
             "
@@ -90,8 +95,9 @@
             [maxSelectedLabels]="config.MAX_SELECTION_MULTISELECT"
             [placeholder]="config.PLACEHOLDER"
             [ngClass]="
-              formGroup.get(config.CTRL_KEY)?.invalid &&
-              formGroup.get(config.CTRL_KEY)?.touched
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
                 ? 'ng-invalid ng-dirty'
                 : ''
             "
@@ -107,8 +113,9 @@
             [maxSelectedLabels]="config.MAX_SELECTION_MULTISELECT"
             [placeholder]="config.PLACEHOLDER"
             [ngClass]="
-              formGroup.get(config.CTRL_KEY)?.invalid &&
-              formGroup.get(config.CTRL_KEY)?.touched
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
                 ? 'ng-invalid ng-dirty'
                 : ''
             "
@@ -116,11 +123,31 @@
             display="chip"
           ></p-multiselect>
         </ng-container>
+        <ng-container *ngIf="config.CTRL_TYPE === controlType.DATEPICKER">
+          <p-datepicker
+            formControlName="date"
+            dateFormat="dd/mm/yy"
+            [ngClass]="
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
+                ? 'ng-invalid ng-dirty'
+                : ''
+            "
+            [showIcon]="config.SHOW_ICON"
+            [showClear]="config.SHOW_ICON_CLEAR"
+            [minDate]="config.MIN_DATE"
+            [maxDate]="config.MAX_DATE"
+            [placeholder]="config.PLACEHOLDER"
+          >
+          </p-datepicker>
+        </ng-container>
         <span
           *ngIf="
-            formGroup.get(config.CTRL_KEY)?.invalid &&
-            formGroup.get(config.CTRL_KEY)?.touched &&
-            config.ERROR_MESSAGE
+            (formGroup.get(config.CTRL_KEY)?.invalid &&
+              formGroup.get(config.CTRL_KEY)?.touched &&
+              config.ERROR_MESSAGE) ||
+            config.INVALID_FORM
           "
           style="color: red"
           >{{ config.ERROR_MESSAGE }}</span
