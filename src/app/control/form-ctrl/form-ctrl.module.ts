@@ -12,6 +12,9 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DatePickerModule } from 'primeng/datepicker';
 import { PrimeNG } from 'primeng/config';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { PasswordModule } from 'primeng/password';
 
 const module = [
   InputTextModule,
@@ -23,6 +26,9 @@ const module = [
   CheckboxModule,
   MultiSelectModule,
   DatePickerModule,
+  IconFieldModule,
+  InputIconModule,
+  PasswordModule,
 ];
 
 @NgModule({

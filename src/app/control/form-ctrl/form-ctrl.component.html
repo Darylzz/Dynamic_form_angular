@@ -125,7 +125,7 @@
         </ng-container>
         <ng-container *ngIf="config.CTRL_TYPE === controlType.DATEPICKER">
           <p-datepicker
-            formControlName="date"
+            [formControlName]="config.CTRL_KEY"
             dateFormat="dd/mm/yy"
             [ngClass]="
               (formGroup.get(config.CTRL_KEY)?.invalid &&
@@ -141,6 +141,25 @@
             [placeholder]="config.PLACEHOLDER"
           >
           </p-datepicker>
+        </ng-container>
+        <ng-container *ngIf="config.CTRL_TYPE === controlType.PASSWORD">
+          <p-password
+            class="password"
+            [formControlName]="config.CTRL_KEY"
+            promptLabel="Choose a password"
+            weakLabel="Too simple"
+            mediumLabel="Average complexity"
+            strongLabel="Complex password"
+            [ngClass]="
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
+                ? 'ng-invalid ng-dirty'
+                : ''
+            "
+            [toggleMask]="config.TOGGLE_MARK_PASSWORD"
+            [placeholder]="config.PLACEHOLDER"
+          ></p-password>
         </ng-container>
         <span
           *ngIf="

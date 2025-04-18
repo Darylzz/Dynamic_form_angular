@@ -100,6 +100,16 @@ export class HomeComponent implements OnInit {
       MAX_DATE: this.setMaxDate(2026),
       PLACEHOLDER: 'Select a date',
     },
+    {
+      LABEL: 'Password',
+      CTRL_KEY: 'password',
+      CTRL_TYPE: ControlType.PASSWORD,
+      REQUIRED: true,
+      WIDTH: 'col-6',
+      ERROR_MESSAGE: 'Password is required',
+      PLACEHOLDER: 'Enter your password',
+      TOGGLE_MARK_PASSWORD: true,
+    },
   ];
 
   constructor() {}

@@ -30,6 +30,7 @@ export interface FormConfig {
   MIN_DATE?: Date;
   MAX_DATE?: Date;
   INVALID_FORM?: boolean; //not set default value
+  TOGGLE_MARK_PASSWORD?: boolean;
 }
 
 export enum ControlType {
@@ -43,4 +44,5 @@ export enum ControlType {
   MULTISELECT,
   MULTICHIP,
   DATEPICKER,
+  PASSWORD,
 }
