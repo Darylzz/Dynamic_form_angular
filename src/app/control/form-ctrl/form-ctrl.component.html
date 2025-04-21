@@ -161,6 +161,40 @@
             [placeholder]="config.PLACEHOLDER"
           ></p-password>
         </ng-container>
+        <ng-container *ngIf="config.CTRL_TYPE === controlType.TEXTAREA">
+          <textarea
+            rows="5"
+            cols="30"
+            pTextarea
+            [formControlName]="config.CTRL_KEY"
+            [ngClass]="
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
+                ? 'ng-invalid ng-dirty'
+                : ''
+            "
+            [placeholder]="config.PLACEHOLDER"
+            [autoResize]="config.AUTO_RESIZE"
+          ></textarea>
+        </ng-container>
+        <ng-container *ngIf="config.CTRL_TYPE === controlType.RADIOBUTTON">
+          <div class="flex" *ngFor="let radio of config.RADIO_OPTION">
+            <p-radiobutton
+              [inputId]="radio.key"
+              [value]="radio"
+              [formControlName]="config.CTRL_KEY"
+              [ngClass]="
+                (formGroup.get(config.CTRL_KEY)?.invalid &&
+                  formGroup.get(config.CTRL_KEY)?.touched) ||
+                config.INVALID_FORM
+                  ? 'ng-invalid ng-dirty'
+                  : ''
+              "
+            />
+            <label [for]="radio.key" class="ml-2">{{ radio.name }}</label>
+          </div>
+        </ng-container>
         <span
           *ngIf="
             (formGroup.get(config.CTRL_KEY)?.invalid &&
@@ -169,7 +203,7 @@
             config.INVALID_FORM
           "
           style="color: red"
-          >{{ config.ERROR_MESSAGE }}</span
+          >{{ formGroup.get(config.CTRL_KEY)?.errors?.['email'] ? 'Invalid pattern' : config.ERROR_MESSAGE }}</span
         >
       </div>
     </div>

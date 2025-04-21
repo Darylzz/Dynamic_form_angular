@@ -7,7 +7,7 @@ export interface FormConfig {
   REQUIRED?: boolean;
   PLACEHOLDER?: string;
   DEFAULT_VALUE?: string;
-  DISABLED?: boolean;
+  DISABLED: boolean;
   WIDTH: string; //concept grid system
   USE_GROUPING?: boolean;
   MODE_NUMBER?: string; //number mode
@@ -31,6 +31,8 @@ export interface FormConfig {
   MAX_DATE?: Date;
   INVALID_FORM?: boolean; //not set default value
   TOGGLE_MARK_PASSWORD?: boolean;
+  AUTO_RESIZE?: boolean;
+  RADIO_OPTION?: RadioOption[];
 }
 
 export enum ControlType {
@@ -45,4 +47,11 @@ export enum ControlType {
   MULTICHIP,
   DATEPICKER,
   PASSWORD,
+  TEXTAREA,
+  RADIOBUTTON,
+}
+
+interface RadioOption {
+  key: string;
+  name: string;
 }

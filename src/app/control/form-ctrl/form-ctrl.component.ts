@@ -36,6 +36,13 @@ export class FormCtrlComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['formConfig']) {
       this.createForm();
+      this.formConfig.forEach((config) => {
+        if (config.DISABLED) {
+          this.formGroup.get(config.CTRL_KEY)?.disable();
+        } else {
+          this.formGroup.get(config.CTRL_KEY)?.enable();
+        }
+      });
     }
   }
 
@@ -44,21 +51,19 @@ export class FormCtrlComponent implements OnInit, OnChanges {
       const validators = this.setValidator(config);
       this.formGroup.addControl(
         config.CTRL_KEY,
-        new FormControl(
-          {
-            value: config.DEFAULT_VALUE ?? null,
-            disabled: config.DISABLED ?? false,
-          },
-          validators
-        )
+        new FormControl(config.DEFAULT_VALUE ?? null, validators)
       );
     });
   }
 
   setValidator(config: FormConfig) {
-    const validators = config.REQUIRED
-      ? [Validators.required]
-      : [Validators.nullValidator];
+    let validators = [];
+    if (config.REQUIRED) {
+      validators.push(Validators.required);
+    }
+    if (config.CTRL_KEY === 'email') {
+      validators.push(Validators.email);
+    }
     return validators;
   }
 
@@ -77,6 +82,7 @@ export class FormCtrlComponent implements OnInit, OnChanges {
 
   onSubmit() {
     this.formGroup.markAllAsTouched();
+    console.log(this.formGroup);
     if (this.formGroup.valid) {
       this.formValue.emit(this.formGroup.value);
     }

@@ -15,6 +15,8 @@ import { PrimeNG } from 'primeng/config';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { PasswordModule } from 'primeng/password';
+import { TextareaModule } from 'primeng/textarea';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 const module = [
   InputTextModule,
@@ -29,6 +31,8 @@ const module = [
   IconFieldModule,
   InputIconModule,
   PasswordModule,
+  TextareaModule,
+  RadioButtonModule,
 ];
 
 @NgModule({
