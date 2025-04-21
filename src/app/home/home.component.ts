@@ -60,6 +60,7 @@ export class HomeComponent implements OnInit {
       REQUIRED: true,
       WIDTH: 'col-6',
       ERROR_MESSAGE: 'Checkbox is required',
+      DISABLED: false,
     },
     {
       LABEL: 'MULTISELECT',
@@ -73,6 +74,7 @@ export class HomeComponent implements OnInit {
       MAX_SELECTION_MULTISELECT: 2,
       ERROR_MESSAGE: 'Multiselect is required',
       PLACEHOLDER: 'Select a country',
+      DISABLED: false,
     },
     {
       LABEL: 'MULTISELECT WITH CHIP',
@@ -86,6 +88,7 @@ export class HomeComponent implements OnInit {
       MAX_SELECTION_MULTISELECT: 2,
       ERROR_MESSAGE: 'Multiselect is required',
       PLACEHOLDER: 'Select a country',
+      DISABLED: false,
     },
     {
       LABEL: 'date',
@@ -99,6 +102,7 @@ export class HomeComponent implements OnInit {
       MIN_DATE: new Date(),
       MAX_DATE: this.setMaxDate(2026),
       PLACEHOLDER: 'Select a date',
+      DISABLED: false,
     },
     {
       LABEL: 'Password',
@@ -109,6 +113,27 @@ export class HomeComponent implements OnInit {
       ERROR_MESSAGE: 'Password is required',
       PLACEHOLDER: 'Enter your password',
       TOGGLE_MARK_PASSWORD: true,
+      DISABLED: false,
+    },
+    {
+      LABEL: 'Textarea',
+      CTRL_KEY: 'textarea',
+      CTRL_TYPE: ControlType.TEXTAREA,
+      REQUIRED: true,
+      WIDTH: 'col-6',
+      ERROR_MESSAGE: 'Textarea is required',
+      PLACEHOLDER: 'Enter your textarea',
+      AUTO_RESIZE: true,
+      DISABLED: false,
+    },
+    {
+      LABEL: 'Radio Button',
+      CTRL_KEY: 'radio',
+      CTRL_TYPE: ControlType.RADIOBUTTON,
+      REQUIRED: true,
+      WIDTH: 'col-6',
+      ERROR_MESSAGE: 'Radio button is required',
+      DISABLED: false,
     },
   ];
 
@@ -123,6 +148,20 @@ export class HomeComponent implements OnInit {
       { name: 'Spain', code: 'ES' },
       { name: 'Poland', code: 'PL' },
     ];
+    const mockRadioOption = [
+      {
+        key: 'radio1',
+        name: 'Option 1',
+      },
+      {
+        key: 'radio2',
+        name: 'Option 2',
+      },
+      {
+        key: 'radio3',
+        name: 'Option 3',
+      },
+    ];
     const indexAutocomplete = this.formConfig.findIndex(
       (item) => item.CTRL_KEY === 'autocomplete'
     );
@@ -132,9 +171,13 @@ export class HomeComponent implements OnInit {
     const indexMultiChip = this.formConfig.findIndex(
       (item) => item.CTRL_KEY === 'multiselectWithChip'
     );
+    const indexRadioButton = this.formConfig.findIndex(
+      (item) => item.CTRL_KEY === 'radio'
+    );
     this.formConfig[indexAutocomplete].SUGGESTIONS_AUTOCOMPLETE = mockLookup;
     this.formConfig[indexMultiSelect].OPTION = mockLookup;
     this.formConfig[indexMultiChip].OPTION = mockLookup;
+    this.formConfig[indexRadioButton].RADIO_OPTION = mockRadioOption;
   }
 
   setMaxDate(targetYear: number) {
@@ -146,7 +189,6 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmit(event: any) {
-    console.log(event);
     if (event.email === 'test') {
       this.formConfig[1].ERROR_MESSAGE = 'Email already exists';
       this.formConfig[1].INVALID_FORM = true;
