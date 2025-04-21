@@ -1,5 +1,5 @@
 <form [formGroup]="formGroup" (submit)="onSubmit()">
-  <ng-container *ngFor="let config of formConfigForm">
+  <ng-container *ngFor="let config of formConfig">
     <div class="grid">
       <div class="flex flex-column" [ngClass]="config.WIDTH">
         <span>
@@ -12,8 +12,9 @@
             pInputText
             [formControlName]="config.CTRL_KEY"
             [ngClass]="
-              formGroup.get(config.CTRL_KEY)?.invalid &&
-              formGroup.get(config.CTRL_KEY)?.touched
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
                 ? 'ng-invalid ng-dirty'
                 : ''
             "
@@ -28,8 +29,9 @@
             [minFractionDigits]="config.MIN_FRACTION_DIGITS"
             [maxFractionDigits]="config.MAX_FRACTION_DIGITS"
             [ngClass]="
-              formGroup.get(config.CTRL_KEY)?.invalid &&
-              formGroup.get(config.CTRL_KEY)?.touched
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
                 ? 'ng-invalid ng-dirty'
                 : ''
             "
@@ -43,8 +45,9 @@
             [formControlName]="config.CTRL_KEY"
             [placeholder]="config.PLACEHOLDER"
             [ngClass]="
-              formGroup.get(config.CTRL_KEY)?.invalid &&
-              formGroup.get(config.CTRL_KEY)?.touched
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
                 ? 'ng-invalid ng-dirty'
                 : ''
             "
@@ -56,8 +59,9 @@
             [formControlName]="config.CTRL_KEY"
             [suggestions]="filteredAutoComplete"
             [ngClass]="
-              formGroup.get(config.CTRL_KEY)?.invalid &&
-              formGroup.get(config.CTRL_KEY)?.touched
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
                 ? 'ng-invalid ng-dirty'
                 : ''
             "
@@ -69,13 +73,137 @@
             optionValue="code"
           ></p-autocomplete>
         </ng-container>
+        <ng-container *ngIf="config.CTRL_TYPE === controlType.CHECKBOX">
+          <p-checkbox
+            [formControlName]="config.CTRL_KEY"
+            [styleClass]="
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
+                ? 'ng-invalid ng-dirty'
+                : ''
+            "
+            [binary]="true"
+          ></p-checkbox>
+        </ng-container>
+        <ng-container *ngIf="config.CTRL_TYPE === controlType.MULTISELECT">
+          <p-multiselect
+            [formControlName]="config.CTRL_KEY"
+            [options]="config.OPTION"
+            [optionLabel]="config.OPTION_LABEL"
+            [optionValue]="config.OPTION_VALUE"
+            [maxSelectedLabels]="config.MAX_SELECTION_MULTISELECT"
+            [placeholder]="config.PLACEHOLDER"
+            [ngClass]="
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
+                ? 'ng-invalid ng-dirty'
+                : ''
+            "
+            [emptyMessage]="config.EMPTY_MESSAGE ?? 'ไม่มีข้อมูล'"
+          ></p-multiselect>
+        </ng-container>
+        <ng-container *ngIf="config.CTRL_TYPE === controlType.MULTICHIP">
+          <p-multiselect
+            [formControlName]="config.CTRL_KEY"
+            [options]="config.OPTION"
+            [optionLabel]="config.OPTION_LABEL"
+            [optionValue]="config.OPTION_VALUE"
+            [maxSelectedLabels]="config.MAX_SELECTION_MULTISELECT"
+            [placeholder]="config.PLACEHOLDER"
+            [ngClass]="
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
+                ? 'ng-invalid ng-dirty'
+                : ''
+            "
+            [emptyMessage]="config.EMPTY_MESSAGE ?? 'ไม่มีข้อมูล'"
+            display="chip"
+          ></p-multiselect>
+        </ng-container>
+        <ng-container *ngIf="config.CTRL_TYPE === controlType.DATEPICKER">
+          <p-datepicker
+            [formControlName]="config.CTRL_KEY"
+            dateFormat="dd/mm/yy"
+            [ngClass]="
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
+                ? 'ng-invalid ng-dirty'
+                : ''
+            "
+            [showIcon]="config.SHOW_ICON"
+            [showClear]="config.SHOW_ICON_CLEAR"
+            [minDate]="config.MIN_DATE"
+            [maxDate]="config.MAX_DATE"
+            [placeholder]="config.PLACEHOLDER"
+          >
+          </p-datepicker>
+        </ng-container>
+        <ng-container *ngIf="config.CTRL_TYPE === controlType.PASSWORD">
+          <p-password
+            class="password"
+            [formControlName]="config.CTRL_KEY"
+            promptLabel="Choose a password"
+            weakLabel="Too simple"
+            mediumLabel="Average complexity"
+            strongLabel="Complex password"
+            [ngClass]="
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
+                ? 'ng-invalid ng-dirty'
+                : ''
+            "
+            [toggleMask]="config.TOGGLE_MARK_PASSWORD"
+            [placeholder]="config.PLACEHOLDER"
+          ></p-password>
+        </ng-container>
+        <ng-container *ngIf="config.CTRL_TYPE === controlType.TEXTAREA">
+          <textarea
+            rows="5"
+            cols="30"
+            pTextarea
+            [formControlName]="config.CTRL_KEY"
+            [ngClass]="
+              (formGroup.get(config.CTRL_KEY)?.invalid &&
+                formGroup.get(config.CTRL_KEY)?.touched) ||
+              config.INVALID_FORM
+                ? 'ng-invalid ng-dirty'
+                : ''
+            "
+            [placeholder]="config.PLACEHOLDER"
+            [autoResize]="config.AUTO_RESIZE"
+          ></textarea>
+        </ng-container>
+        <ng-container *ngIf="config.CTRL_TYPE === controlType.RADIOBUTTON">
+          <div class="flex" *ngFor="let radio of config.RADIO_OPTION">
+            <p-radiobutton
+              [inputId]="radio.key"
+              [value]="radio"
+              [formControlName]="config.CTRL_KEY"
+              [ngClass]="
+                (formGroup.get(config.CTRL_KEY)?.invalid &&
+                  formGroup.get(config.CTRL_KEY)?.touched) ||
+                config.INVALID_FORM
+                  ? 'ng-invalid ng-dirty'
+                  : ''
+              "
+            />
+            <label [for]="radio.key" class="ml-2">{{ radio.name }}</label>
+          </div>
+        </ng-container>
         <span
           *ngIf="
-            formGroup.get(config.CTRL_KEY)?.invalid &&
-            formGroup.get(config.CTRL_KEY)?.touched
+            (formGroup.get(config.CTRL_KEY)?.invalid &&
+              formGroup.get(config.CTRL_KEY)?.touched &&
+              config.ERROR_MESSAGE) ||
+            config.INVALID_FORM
           "
           style="color: red"
-          >required</span
+          >{{ formGroup.get(config.CTRL_KEY)?.errors?.['email'] ? 'Invalid pattern' : config.ERROR_MESSAGE }}</span
         >
       </div>
     </div>

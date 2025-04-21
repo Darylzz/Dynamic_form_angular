@@ -14,4 +14,21 @@
       }
     }
   }
+
+  .password {
+    ::ng-deep {
+      .p-password {
+        width: 100%;
+        .p-inputtext {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  ::ng-deep {
+    .p-datepicker {
+      width: 100%;
+    }
+  }
 }
